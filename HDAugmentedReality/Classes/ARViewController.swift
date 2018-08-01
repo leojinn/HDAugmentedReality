@@ -521,7 +521,11 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
         // Close button - make it customizable
         let closeButton: UIButton = UIButton(type: UIButtonType.custom)
         closeButton.setImage(closeButtonImage, for: UIControlState());
-        closeButton.frame = CGRect(x: self.view.bounds.size.width - 45, y: 5,width: 40,height: 40)
+        if #available(iOS 11.0, *) {
+            closeButton.frame = CGRect(x: self.view.bounds.size.width - 45, y: self.view.safeAreaInsets.top + 5,width: 40,height: 40)
+        } else {
+            closeButton.frame = CGRect(x: self.view.bounds.size.width - 45, y: 5,width: 40,height: 40)
+        }
         closeButton.addTarget(self, action: #selector(ARViewController.closeButtonTap), for: UIControlEvents.touchUpInside)
         closeButton.autoresizingMask = [UIViewAutoresizing.flexibleLeftMargin, UIViewAutoresizing.flexibleBottomMargin]
         self.view.addSubview(closeButton)
